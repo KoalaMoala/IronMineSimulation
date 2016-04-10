@@ -57,32 +57,37 @@ class Modele(object):
         default_height = 70
 
         # UNLOADING DOCK
-        bbox = (5, 5, 5 + default_width, 5 + default_height)
+        top_left_corner = {"x": 50, "y": 50}
+        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
         unloading_dock = self.system.workshops[0]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(unloading_dock.name), font=bfont, fill='black')
 
         # MIXER
-        bbox = (0, 5,  default_width, 5 + default_height)
+        top_left_corner = {"x": 250, "y": 100}
+        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
         mixer = self.system.workshops[1]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mixer.name), font=bfont, fill='black')
 
         # MINE
-        bbox = (350, 5, 350 + default_width, 5 + default_height)
-        mine = self.system.workshops[1]
+        top_left_corner = {"x": 50, "y": 350}
+        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        mine = self.system.workshops[2]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mine.name), font=bfont, fill='black')
 
         # ORE PROCESSING
-        bbox = (450, 150, 350 + default_width, 150 + default_height)
-        processing = self.system.workshops[1]
+        top_left_corner = {"x": 250, "y": 350}
+        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        processing = self.system.workshops[3]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(processing.name), font=bfont, fill='black')
 
         # LOADING DOCK
-        bbox = (5, 5, 5 + default_width, 5 + default_height)
-        loading_dock = self.system.workshops[0]
+        top_left_corner = {"x": 450, "y": 350}
+        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        loading_dock = self.system.workshops[4]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(loading_dock.name), font=bfont, fill='black')
 
