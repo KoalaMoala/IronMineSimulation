@@ -37,3 +37,9 @@ class System:
         self.workshops[3].set_transit([self.transits[0], self.transits[1]], self.transits[2])  # Ore Processing
         self.workshops[4].set_transit([self.transits[2]], None)  # Loading Dock
 
+    def update(self):
+        for i in range(len(self.transits)):
+            self.transits[i].update()
+
+
+

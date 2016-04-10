@@ -10,3 +10,7 @@ class Transit:
         # initializing by default stock quantities to 0
         for i in range(len(self.stockNames)):
             self.stockQuantities.append(0)
+
+    def update(self):
+        for i in range(len(self.stockQuantities)):
+            self.stockQuantities[i] += 1
