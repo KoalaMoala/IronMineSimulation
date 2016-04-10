@@ -14,5 +14,8 @@ class System:
         self.behaviourTrees.append(BehaviourTree())
 
     def init_workshop(self):
-        self.workshops.append(Workshop("unloadingDock", self.behaviourTrees[0], None, None))
-        self.workshops.append(Workshop("mixer", self.behaviourTrees[0], None, None))
+        self.workshops.append(Workshop("Unloading Dock", self.behaviourTrees[0], None, None))
+        self.workshops.append(Workshop("Mixer", self.behaviourTrees[0], None, None))
+        self.workshops.append(Workshop("Mine", self.behaviourTrees[0], None, None))
+        self.workshops.append(Workshop("Ore Processing", self.behaviourTrees[0], None, None))
+        self.workshops.append(Workshop("Loading Dock", self.behaviourTrees[0], None, None))
