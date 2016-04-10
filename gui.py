@@ -67,6 +67,7 @@ class Modele(object):
         bbox = (350, 5, 350 + default_width, 5 + default_height)
         mixer = self.system.workshops[1]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
+        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mixer.name), font=bfont, fill='black')
 
         # unloadingDock
 

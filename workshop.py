@@ -1,9 +1,8 @@
 class Workshop:
-    def __init__(self, name, tree,  ingredients_name, ingredients_inputs, ingredients_max_quantities, products_name,
-                 products_outputs, products_max_quantities):
+    def __init__(self, name, tree, ingredients_inputs, products_outputs):
         self.name = name
-        self.input = ingredients_inputs
-        self.output = products_outputs
+        self.input = ingredients_inputs  # transits before workshop
+        self.output = products_outputs  # transits after workshop
         self.behaviorTree = tree
 
 
