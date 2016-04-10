@@ -61,34 +61,12 @@ class Modele(object):
         loading_dock = self.system.workshops[0]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(loading_dock.name), font=bfont, fill='black')
-        ingredients_display_text = " %s : %d / %d " % (loading_dock.ingredientsName[0],
-                                                       loading_dock.ingredientsQuantities[0],
-                                                       loading_dock.ingredientsMaxQuantities[0])
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 40), text=ingredients_display_text, font=bfont, fill='black')
+
 
         # MIXER
         bbox = (350, 5, 350 + default_width, 5 + default_height)
         mixer = self.system.workshops[1]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-
-        # label 1
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mixer.name), font=bfont, fill='black')
-        ingredients_display_text = " %s : %d / %d " % (mixer.ingredientsName[0],
-                                                       mixer.ingredientsQuantities[0],
-                                                       mixer.ingredientsMaxQuantities[0])
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 40), text=ingredients_display_text, font=bfont, fill='black')
-
-        # label 2
-        ingredients_display_text = " %s : %d / %d " % (mixer.ingredientsName[1],
-                                                       mixer.ingredientsQuantities[1],
-                                                       mixer.ingredientsMaxQuantities[1])
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 60), text=ingredients_display_text, font=bfont, fill='black')
-
-        # label 3
-        products_display_text = " %s : %d / %d " % (mixer.productsName[0],
-                                                    mixer.productsQuantities[0],
-                                                    mixer.productsMaxQuantities[0])
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 80), text=products_display_text, font=bfont, fill='black')
 
         # unloadingDock
 

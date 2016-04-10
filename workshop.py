@@ -6,23 +6,6 @@ class Workshop:
         self.output = products_outputs
         self.behaviorTree = tree
 
-        # ingredients
-        self.ingredientsName = ingredients_name
-        self.ingredientsQuantities = []
-        self.ingredientsMaxQuantities = ingredients_max_quantities
-
-        # initializing by default ingredients quantities to 0
-        for i in range(len(self.ingredientsName)):
-            self.ingredientsQuantities.append(0)
-
-        # products
-        self.productsName = products_name
-        self.productsQuantities = []
-        self.productsMaxQuantities = products_max_quantities
-
-        # initializing by default products quantities to 0
-        for i in range(len(self.productsName)):
-            self.productsQuantities.append(0)
 
 
 
