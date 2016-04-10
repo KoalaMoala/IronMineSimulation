@@ -57,39 +57,60 @@ class Modele(object):
         default_height = 70
 
         # UNLOADING DOCK
-        top_left_corner = {"x": 50, "y": 50}
-        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        unload_top_left_corner = {"x": 50, "y": 50}
+        bbox = (unload_top_left_corner["x"], unload_top_left_corner["y"], unload_top_left_corner["x"] + default_width,
+                unload_top_left_corner["y"] + default_height)
         unloading_dock = self.system.workshops[0]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(unloading_dock.name), font=bfont, fill='black')
 
         # MIXER
-        top_left_corner = {"x": 250, "y": 100}
-        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        mixer_top_left_corner = {"x": 250, "y": 100}
+        bbox = (mixer_top_left_corner["x"], mixer_top_left_corner["y"], mixer_top_left_corner["x"] + default_width,
+                mixer_top_left_corner["y"] + default_height)
         mixer = self.system.workshops[1]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mixer.name), font=bfont, fill='black')
 
+        # Graphical link between unloading dock and mixer. No storage there ?
+        g.create_line(unload_top_left_corner["x"] + default_width, unload_top_left_corner["y"] + default_height/2,
+                      mixer_top_left_corner["x"], mixer_top_left_corner["y"] + default_height/2, width=2, fill="orange")
+
         # MINE
-        top_left_corner = {"x": 50, "y": 350}
-        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        mine_top_left_corner = {"x": 50, "y": 350}
+        bbox = (mine_top_left_corner["x"], mine_top_left_corner["y"], mine_top_left_corner["x"] + default_width,
+                mine_top_left_corner["y"] + default_height)
         mine = self.system.workshops[2]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mine.name), font=bfont, fill='black')
 
         # ORE PROCESSING
-        top_left_corner = {"x": 250, "y": 350}
-        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        process_top_left_corner = {"x": 250, "y": 350}
+        bbox = (process_top_left_corner["x"], process_top_left_corner["y"], process_top_left_corner["x"] + default_width,
+                process_top_left_corner["y"] + default_height)
         processing = self.system.workshops[3]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(processing.name), font=bfont, fill='black')
 
+        # Graphical link between mine and ore processing. Missing storage info.
+        g.create_line(mine_top_left_corner["x"] + default_width, mine_top_left_corner["y"] + default_height/2,
+                      process_top_left_corner["x"], process_top_left_corner["y"] + default_height/2, width=2, fill="orange")
+
+        # Graphical link between mixer and ore processing. Missing storage info.
+        g.create_line(mixer_top_left_corner["x"] + default_width/2, mixer_top_left_corner["y"] + default_height,
+                      process_top_left_corner["x"] + default_width/2, process_top_left_corner["y"], width=2, fill="orange")
+
         # LOADING DOCK
-        top_left_corner = {"x": 450, "y": 350}
-        bbox = (top_left_corner["x"], top_left_corner["y"], top_left_corner["x"] + default_width, top_left_corner["y"] + default_height)
+        load_top_left_corner = {"x": 450, "y": 350}
+        bbox = (load_top_left_corner["x"], load_top_left_corner["y"], load_top_left_corner["x"] + default_width,
+                load_top_left_corner["y"] + default_height)
         loading_dock = self.system.workshops[4]
         g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
         g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(loading_dock.name), font=bfont, fill='black')
+
+        # Graphical link between ore processing and loading dock. Missing storage info.
+        g.create_line(process_top_left_corner["x"] + default_width, process_top_left_corner["y"] + default_height/2,
+                      load_top_left_corner["x"], load_top_left_corner["y"] + default_height/2, width=2, fill="orange")
 
     def run(self):
         ############################################
@@ -114,6 +135,7 @@ if __name__ == '__main__':
     _system = System()
     _system.init_behaviour_trees()
     _system.init_workshop()
+    _system.init_transit()
 
     if doRenderTk:  # avec rendering Tk (animation)
         root = Tk()

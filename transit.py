@@ -8,5 +8,5 @@ class Transit:
         self.stockMaxQuantities = stock_max_quantities
 
         # initializing by default stock quantities to 0
-        for i in range(self.stockNames.length):
+        for i in range(len(self.stockNames)):
             self.stockQuantities.append(0)
