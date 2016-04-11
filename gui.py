@@ -56,80 +56,7 @@ class Modele(object):
         bfont = ('times', 14, 'bold')
         default_width = 150
         default_height = 70
-
-        # UNLOADING DOCK
-        unload_top_left_corner = {"x": 50, "y": 50}
-        bbox = (unload_top_left_corner["x"], unload_top_left_corner["y"], unload_top_left_corner["x"] + default_width,
-                unload_top_left_corner["y"] + default_height)
-        unloading_dock = self.system.workshops[0]
-        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(unloading_dock.name), font=bfont, fill='black')
-
-        # MIXER
-        mixer_top_left_corner = {"x": 250, "y": 100}
-        bbox = (mixer_top_left_corner["x"], mixer_top_left_corner["y"], mixer_top_left_corner["x"] + default_width,
-                mixer_top_left_corner["y"] + default_height)
-        mixer = self.system.workshops[1]
-        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mixer.name), font=bfont, fill='black')
-
-        # Graphical link between unloading dock and mixer. No storage there ?
-        g.create_line(unload_top_left_corner["x"] + default_width, unload_top_left_corner["y"] + default_height/2,
-                      mixer_top_left_corner["x"], mixer_top_left_corner["y"] + default_height/2, width=2, fill="orange")
-
-        # MINE
-        mine_top_left_corner = {"x": 50, "y": 350}
-        bbox = (mine_top_left_corner["x"], mine_top_left_corner["y"], mine_top_left_corner["x"] + default_width,
-                mine_top_left_corner["y"] + default_height)
-        mine = self.system.workshops[2]
-        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(mine.name), font=bfont, fill='black')
-
-        # ORE PROCESSING
-        process_top_left_corner = {"x": 250, "y": 350}
-        bbox = (process_top_left_corner["x"], process_top_left_corner["y"], process_top_left_corner["x"] + default_width,
-                process_top_left_corner["y"] + default_height)
-        processing = self.system.workshops[3]
-        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(processing.name), font=bfont, fill='black')
-
-        # PIT 1 - TRANSIT
-        pit1 = self.system.transits[1]
-        text_coordinates = {"x": (mine_top_left_corner["x"] + process_top_left_corner["x"] + default_width) / 2,
-                            "y": mine_top_left_corner["y"]}
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 5), text=str(pit1.name), font=bfont, fill='black')
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 25), text=str(pit1.stockNames[0]), font=bfont, fill='black')
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 45), text=str(pit1.stockQuantities[0]), font=bfont, fill='black')
-        g.create_line(mine_top_left_corner["x"] + default_width, mine_top_left_corner["y"] + default_height/2,
-                      process_top_left_corner["x"], process_top_left_corner["y"] + default_height/2, width=2, fill="orange")
-
-        # TANK - TRANSIT
-        tank = self.system.transits[0]
-        text_coordinates = {"x": process_top_left_corner["x"],
-                            "y": (process_top_left_corner["y"] + mixer_top_left_corner["y"]) / 2}
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 5), text=str(tank.name), font=bfont, fill='black')
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 25), text=str(tank.stockNames[0]), font=bfont, fill='black')
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 45), text=str(tank.stockQuantities[0]), font=bfont, fill='black')
-        g.create_line(mixer_top_left_corner["x"] + default_width/2, mixer_top_left_corner["y"] + default_height,
-                      process_top_left_corner["x"] + default_width/2, process_top_left_corner["y"], width=2, fill="orange")
-
-        # LOADING DOCK
-        load_top_left_corner = {"x": 450, "y": 350}
-        bbox = (load_top_left_corner["x"], load_top_left_corner["y"], load_top_left_corner["x"] + default_width,
-                load_top_left_corner["y"] + default_height)
-        loading_dock = self.system.workshops[4]
-        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-        g.create_text((bbox[0] + default_width/2, bbox[1] + 20), text=str(loading_dock.name), font=bfont, fill='black')
-
-        # PIT 2 - TRANSIT
-        pit2 = self.system.transits[2]
-        text_coordinates = {"x": (load_top_left_corner["x"] + process_top_left_corner["x"] + default_width) / 2,
-                            "y": load_top_left_corner["y"]}
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 5), text=str(pit2.name), font=bfont, fill='black')
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 25), text=str(pit2.stockNames[0]), font=bfont, fill='black')
-        g.create_text((text_coordinates["x"], text_coordinates["y"] + 45), text=str(pit2.stockQuantities[0]), font=bfont, fill='black')
-        g.create_line(process_top_left_corner["x"] + default_width, process_top_left_corner["y"] + default_height/2,
-                      load_top_left_corner["x"], load_top_left_corner["y"] + default_height/2, width=2, fill="orange")
+        self.system.render(g,default_width,default_height)
 
     def run(self):
         ############################################
@@ -152,7 +79,6 @@ class Modele(object):
 if __name__ == '__main__':
 
     _system = System()
-    _system.init_behaviour_trees()
     _system.init_workshop()
     _system.init_transit()
 

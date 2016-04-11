@@ -1,41 +1,42 @@
-from Workshop import Workshop
-from Transit import Transit
+from workshop import Workshop
+from transit import Transit
 from BehaviourTree import BehaviourTree
 
 
 class System:
     def __init__(self):
         self.workshops = []
-        self.behaviourTrees = []
         self.transits = []
-        self.input = []
-        self.output = []
-
-    def init_behaviour_trees(self):
-        self.behaviourTrees.append(BehaviourTree())
 
     def init_workshop(self):
-        self.workshops.append(Workshop("Unloading Dock", self.behaviourTrees[0]))
-        self.workshops.append(Workshop("Mixer", self.behaviourTrees[0]))
-        self.workshops.append(Workshop("Mine", self.behaviourTrees[0]))
-        self.workshops.append(Workshop("Ore Processing", self.behaviourTrees[0]))
-        self.workshops.append(Workshop("Loading Dock", self.behaviourTrees[0]))
+        self.workshops.append(Workshop("Unloading Dock", {"x": 50, "y": 50}))
+        self.workshops.append(Workshop("Mixer", {"x": 250, "y": 100}))
+        self.workshops.append(Workshop("Mine", {"x": 50, "y": 350}))
+        self.workshops.append(Workshop("Ore Processing", {"x": 250, "y": 350}))
+        self.workshops.append(Workshop("Loading Dock", {"x": 450, "y": 350}))
 
     def init_transit(self):
         # Assumed that container capacity is 10.000L. No indication anywhere.
-        self.transits.append(Transit("Tank", self.workshops[1], self.workshops[3], ["Chemical mix"], [10000]))
+        self.transits.append(Transit("Tank", self.workshops[1], self.workshops[3], "Chemical mix", 10000))
+        self.workshops[1].addOutEdge(self.transits[0])
+        self.workshops[3].addInEdge(self.transits[0])
 
         # Assumed that pit 1 capacity is 200t. No indication anywhere.
-        self.transits.append(Transit("Pit 1", self.workshops[2], self.workshops[3], ["Ore"], [200]))
+        self.transits.append(Transit("Pit 1", self.workshops[2], self.workshops[3], "Ore", 200))
+        self.workshops[2].addOutEdge(self.transits[1])
+        self.workshops[3].addInEdge(self.transits[1])
 
         # Assumed that pit 2 capacity is 200t. No indication anywhere.
-        self.transits.append(Transit("Pit 2", self.workshops[3], self.workshops[4], ["Iron"], [200]))
+        self.transits.append(Transit("Pit 2", self.workshops[3], self.workshops[4], "Iron", 200))
+        self.workshops[3].addOutEdge(self.transits[2])
+        self.workshops[4].addInEdge(self.transits[2])
 
-        # Adding connections to workshops objects
-        self.workshops[1].set_transit(None, [self.transits[0]])  # Mixer
-        self.workshops[2].set_transit(None, [self.transits[1]])  # Mine
-        self.workshops[3].set_transit([self.transits[0], self.transits[1]], self.transits[2])  # Ore Processing
-        self.workshops[4].set_transit([self.transits[2]], None)  # Loading Dock
+
+    def render(self,g, w, h):
+        for ws in self.workshops:
+            ws.render(g,w,h)
+        for ed in self.transits:
+            ed.render(g,w,h)
 
     def update(self):
         for i in range(len(self.transits)):

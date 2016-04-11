@@ -1,15 +1,20 @@
 class Workshop:
-    def __init__(self, name, tree):
+    def __init__(self, name, position, tcycle = 0):
         self.name = name
-        self.behaviorTree = tree
-        self.input = []
-        self.output = []
+        self.behavior = []
+        self.ina = []
+        self.oua = []
+        self.tcycle = tcycle
+        self.topLeftCorner = position
 
-    def set_transit(self, ingredients_inputs, products_outputs):
-        self.input = ingredients_inputs  # transits before workshop
-        self.output = products_outputs  # transits after workshop
+    def addInEdge(self, transit):
+        self.ina.append(transit)
 
+    def addOutEdge(self, transit):
+        self.oua.append(transit)
 
-
-
-
+    def render(self,g,w,h):
+        bbox = (self.topLeftCorner["x"], self.topLeftCorner["y"], self.topLeftCorner["x"] + w,
+                self.topLeftCorner["y"] + h)
+        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
+        g.create_text((bbox[0] + w/2, bbox[1] + 20), text=str(self.name), font=('times', 14, 'bold'), fill='black')
