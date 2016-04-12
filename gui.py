@@ -15,7 +15,7 @@ class Modele(object):
         # canvas pour le rendering graphique
         self.canvas_size = (600, 600)  # taille du canvas pour le rendering
         if master is not None:  # fenetre de rendering si necessaire
-            self.refreshTk = 0.5
+            self.refreshTk = 1/60
             self.waitTk = 3
             self.frame = Frame(master)
             self.frame.pack()
@@ -45,7 +45,7 @@ class Modele(object):
         self.refreshTk *= 0.5 * event.x / self.canvas_size[0]
 
     def init_modele(self):  # init du modele
-        self.nbPas = 5  # nombre de pas de simulation
+        self.nbPas = 100000  # nombre de pas de simulation
         self.etat = 0  # variable d'etat
 
     def update(self):  # update du modele
@@ -63,7 +63,6 @@ class Modele(object):
         # debut boucle de simulation de la dynamique
         for i in range(self.nbPas):
             # on opere le systeme pour un pas
-            print("--------------------------------------------")
             self.update()
             # rendering tkinter
             if self.g is not None:
