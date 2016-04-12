@@ -15,7 +15,7 @@ class Modele(object):
         # canvas pour le rendering graphique
         self.canvas_size = (600, 600)  # taille du canvas pour le rendering
         if master is not None:  # fenetre de rendering si necessaire
-            self.refreshTk = 1.0
+            self.refreshTk = 0.5
             self.waitTk = 3
             self.frame = Frame(master)
             self.frame.pack()
@@ -81,6 +81,7 @@ if __name__ == '__main__':
     _system = System()
     _system.init_workshop()
     _system.init_transit()
+    _system.init_behavior()
 
     if doRenderTk:  # avec rendering Tk (animation)
         root = Tk()

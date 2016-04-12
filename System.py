@@ -1,6 +1,6 @@
 from workshop import Workshop
 from transit import Transit
-from BehaviourTree import BehaviourTree
+from BehaviourTree import BehaviorTree
 
 
 class System:
@@ -32,6 +32,11 @@ class System:
         self.workshops[4].addInEdge(self.transits[2])
 
 
+
+    def init_behavior(self):
+        for ws in self.workshops:
+            ws.setBehavior(BehaviorTree(ws))
+
     def render(self,g, w, h):
         for ws in self.workshops:
             ws.render(g,w,h)
@@ -39,8 +44,8 @@ class System:
             ed.render(g,w,h)
 
     def update(self):
-        for i in range(len(self.transits)):
-            self.transits[i].update()
+        for ws in self.workshops:
+            ws.update()
 
 
 

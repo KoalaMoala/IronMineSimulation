@@ -19,9 +19,6 @@ class Transit:
     def getAmount(self):
         return self.w
 
-    def update(self):
-        self.w +=1
-
     def render(self,g,w,h):
         bfont = ('times', 14, 'bold')
         text_coordinate = {}
