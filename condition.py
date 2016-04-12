@@ -10,9 +10,7 @@ class entreeTest(Task):
     def run(self):
         entree = self.noeud.ina[self.indexEdge]
         if entree.w > 0:
-            #print(self.noeud.name,': TRUE Il y a ', entree.w , entree.stockName)
             return Task.SUCCES
-        #print(self.noeud.name,': FALSE Il y a ', entree.w , entree.stockName)
         return Task.ECHEC
 
 class sortieTest(Task):
@@ -24,10 +22,7 @@ class sortieTest(Task):
     def run(self):
         sortie = self.noeud.oua[self.indexEdge]
         if sortie.w >= sortie.getCapacity():
-            #print(self.noeud.name,': FALSE Il y a ', sortie.w, sortie.stockName)
             return Task.ECHEC
-
-        #print(self.noeud.name,': TRUE Il y a ', sortie.w, sortie.stockName)
         return Task.SUCCES
 
 
