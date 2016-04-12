@@ -63,6 +63,7 @@ class Modele(object):
         # debut boucle de simulation de la dynamique
         for i in range(self.nbPas):
             # on opere le systeme pour un pas
+            print("--------------------------------------------")
             self.update()
             # rendering tkinter
             if self.g is not None:

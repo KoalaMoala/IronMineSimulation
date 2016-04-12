@@ -31,7 +31,9 @@ class System:
         self.workshops[3].addOutEdge(self.transits[2])
         self.workshops[4].addInEdge(self.transits[2])
 
-
+        self.transits.append(Transit("", self.workshops[0], self.workshops[1], "", 10000,10000))
+        self.workshops[0].addOutEdge(self.transits[3])
+        self.workshops[1].addInEdge(self.transits[3])
 
     def init_behavior(self):
         for ws in self.workshops:

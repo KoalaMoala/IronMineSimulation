@@ -16,9 +16,6 @@ class Transit:
     def getCapacity(self):
         return self.stockMaxQuantities
 
-    def getAmount(self):
-        return self.w
-
     def render(self,g,w,h):
         bfont = ('times', 14, 'bold')
         text_coordinate = {}
@@ -35,17 +32,17 @@ class Transit:
                     self.nodeFrom.topLeftCorner["x"] + w, self.nodeFrom.topLeftCorner["y"] + h/2]
         elif(self.nodeFrom.topLeftCorner['y'] + h < self.nodeTo.topLeftCorner['y']):
             text_coordinate = {"x": (self.nodeFrom.topLeftCorner["x"] + self.nodeTo.topLeftCorner["x"] + w) / 2 + 50,
-                                "y": (self.nodeFrom.topLeftCorner["y"] + self.nodeTo.topLeftCorner["y"]) / 2 + 50}
+                                "y": (self.nodeFrom.topLeftCorner["y"] + self.nodeTo.topLeftCorner["y"]) / 2}
             pFromTo = [self.nodeFrom.topLeftCorner["x"] + w / 2, self.nodeFrom.topLeftCorner["y"] + h,
                         self.nodeTo.topLeftCorner["x"]+ w/2, self.nodeTo.topLeftCorner["y"]]
         elif(self.nodeFrom.topLeftCorner['y']  >= self.nodeTo.topLeftCorner['y'] + h):
             text_coordinate = {"x": (self.nodeFrom.topLeftCorner["x"] + self.nodeTo.topLeftCorner["x"] + w) / 2 + 50,
-                                "y": (self.nodeFrom.topLeftCorner["y"] + self.nodeTo.topLeftCorner["y"]) / 2 + 50}
+                                "y": (self.nodeFrom.topLeftCorner["y"] + self.nodeTo.topLeftCorner["y"]) / 2}
             pFromTo = [self.nodeTo.topLeftCorner["x"]+ w/2, self.nodeTo.topLeftCorner["y"],
                        self.nodeFrom.topLeftCorner["x"] + w / 2, self.nodeFrom.topLeftCorner["y"] + h]
 
         if len(pFromTo)>3 :
+            g.create_line(pFromTo[0],pFromTo[1],pFromTo[2],pFromTo[3], width=2, fill="orange")
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 5), text=str(self.name), font=bfont, fill='black')
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 25), text=str(self.stockName), font=bfont, fill='black')
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w), font=bfont, fill='black')
-            g.create_line(pFromTo[0],pFromTo[1],pFromTo[2],pFromTo[3], width=2, fill="orange")
