@@ -10,10 +10,10 @@ class System:
 
     def init_workshop(self):
         self.workshops.append(Workshop("Unloading Dock", {"x": 50, "y": 50}, 1))
-        self.workshops.append(Workshop("Mixer", {"x": 250, "y": 100},2))
+        self.workshops.append(Workshop("Mixer", {"x": 300, "y": 100},2))
         self.workshops.append(Workshop("Mine", {"x": 50, "y": 350},3))
-        self.workshops.append(Workshop("Ore Processing", {"x": 250, "y": 350},4))
-        self.workshops.append(Workshop("Loading Dock", {"x": 450, "y": 350},5))
+        self.workshops.append(Workshop("Ore Processing", {"x": 300, "y": 300},4))
+        self.workshops.append(Workshop("Loading Dock", {"x": 550, "y": 300},5))
 
     def init_transit(self):
         # Assumed that container capacity is 10.000L. No indication anywhere.
@@ -40,10 +40,10 @@ class System:
             ws.setBehavior(BehaviorTree(ws))
 
     def render(self,g, w, h):
-        for ws in self.workshops:
-            ws.render(g,w,h)
         for ed in self.transits:
             ed.render(g,w,h)
+        for ws in self.workshops:
+            ws.render(g,w,h)
 
     def update(self):
         for ws in self.workshops:

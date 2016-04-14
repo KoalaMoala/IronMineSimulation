@@ -17,7 +17,7 @@ class Transit:
         return self.stockMaxQuantities
 
     def render(self,g,w,h):
-        bfont = ('times', 14, 'bold')
+        bfont = ('times', 12)
         text_coordinate = {}
         pFromTo = []
         if(self.nodeFrom.topLeftCorner['x'] + w < self.nodeTo.topLeftCorner['x']):
@@ -42,7 +42,7 @@ class Transit:
                        self.nodeFrom.topLeftCorner["x"] + w / 2, self.nodeFrom.topLeftCorner["y"] + h]
 
         if len(pFromTo)>3 :
-            g.create_line(pFromTo[0],pFromTo[1],pFromTo[2],pFromTo[3], width=2, fill="orange")
+            g.create_line(pFromTo[0],pFromTo[1],pFromTo[2],pFromTo[3], width=1.5, fill="gray80")
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 5), text=str(self.name), font=bfont, fill='black')
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 25), text=str(self.stockName), font=bfont, fill='black')
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w), font=bfont, fill='black')

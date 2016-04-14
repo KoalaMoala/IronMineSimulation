@@ -18,8 +18,8 @@ class Workshop:
     def render(self,g,w,h):
         bbox = (self.topLeftCorner["x"], self.topLeftCorner["y"], self.topLeftCorner["x"] + w,
                 self.topLeftCorner["y"] + h)
-        g.create_rectangle(bbox, width=1, outline="black", fill="yellow")
-        g.create_text((bbox[0] + w/2, bbox[1] + 20), text=str(self.name), font=('times', 14, 'bold'), fill='black')
+        g.create_rectangle(bbox, width=1, outline="black", fill="gray70")
+        g.create_text((bbox[0] + w/2, bbox[1] + 20), text=str(self.name), font=('times', 12, 'bold'), fill='black')
 
     def update(self):
         self.behavior.update()
