@@ -25,4 +25,21 @@ class sortieTest(Task):
             return Task.ECHEC
         return Task.SUCCES
 
+#Traitement du minerai, au moins 50 tonnes
+class machinePreTest(Task):
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+        self.noeud.isWorking = False
+
+    def run(self):
+        entree = self.noeud.ina[0]
+        entree1 = self.noeud.ina[1]
+        if entree.w >= 50 and entree1 >=50000:
+            self.noeud.isWorking = True
+        if entree.w < 1 or entree1 <1000:
+            self.noeud.isWorking = False
+        if self.noeud.isWorking:
+            return Task.SUCCES
+        return Task.ECHEC
 

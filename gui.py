@@ -13,7 +13,7 @@ class Modele(object):
         self.system = system
         self.init_modele()  # init du modele lui-meme
         # canvas pour le rendering graphique
-        self.canvas_size = (800, 800)  # taille du canvas pour le rendering
+        self.canvas_size = (800, 600)  # taille du canvas pour le rendering
         if master is not None:  # fenetre de rendering si necessaire
             self.refreshTk = 0.5
             self.waitTk = 3
@@ -53,7 +53,8 @@ class Modele(object):
         self.system.update()
 
     def render(self, g):  # rendering du modele dans le canvas Tk g
-        bfont = ('times', 14, 'bold')
+        bbox = (0, 0, 800, 600)
+        g.create_rectangle(bbox, width=1, outline="black", fill="LavenderBlush4")
         default_width = 110
         default_height = 70
         self.system.render(g,default_width,default_height)

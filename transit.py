@@ -1,11 +1,12 @@
 class Transit:
-    def __init__(self, name, input_workshop, output_workshop, stock_name, stock_max_quantity, stock_actu=0):
+    def __init__(self, name, input_workshop, output_workshop, stock_name, stock_max_quantity, stock_actu=0, unit=''):
         self.name = name
         self.nodeFrom = input_workshop
         self.nodeTo = output_workshop
         self.stockName = stock_name
         self.w = stock_actu
         self.stockMaxQuantities = stock_max_quantity
+        self.unit = unit
 
     def setNodeFrom(self, nodeFr):
         self.nodeFrom = nodeFr
@@ -17,6 +18,8 @@ class Transit:
         return self.stockMaxQuantities
 
     def render(self,g,w,h):
+        if(self.nodeTo == None or self.nodeFrom == None):
+            return
         bfont = ('times', 12)
         text_coordinate = {}
         pFromTo = []
@@ -45,4 +48,4 @@ class Transit:
             g.create_line(pFromTo[0],pFromTo[1],pFromTo[2],pFromTo[3], width=1.5, fill="gray80")
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 5), text=str(self.name), font=bfont, fill='black')
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 25), text=str(self.stockName), font=bfont, fill='black')
-            g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w), font=bfont, fill='black')
+            g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w)+self.unit, font=bfont, fill='black')
