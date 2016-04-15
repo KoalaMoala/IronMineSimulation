@@ -25,7 +25,7 @@ class sortieTest(Task):
             return Task.ECHEC
         return Task.SUCCES
 
-#Traitement du minerai, au moins 50 tonnes
+#Traitement du minerai, au moins 50 tonnes et 50000L de produits
 class machinePreTest(Task):
     def __init__(self, noeud):
         super().__init__()
@@ -33,13 +33,85 @@ class machinePreTest(Task):
         self.noeud.isWorking = False
 
     def run(self):
-        entree = self.noeud.ina[0]
-        entree1 = self.noeud.ina[1]
-        if entree.w >= 50 and entree1 >=50000:
+        entree = self.noeud.ina[1]
+        entree1 = self.noeud.ina[0]
+        if entree.w >= 50 and entree1.w >=50000:
             self.noeud.isWorking = True
-        if entree.w < 1 or entree1 <1000:
+        if entree.w < 1 or entree1.w <1000:
             self.noeud.isWorking = False
         if self.noeud.isWorking:
             return Task.SUCCES
         return Task.ECHEC
 
+#Approvisionnement train au besoin
+class trainTest(Task):
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+        self.noeud.train = False
+
+    def run(self):
+        chemical = self.noeud.oua[0].w
+        chemicalMix = self.noeud.oua[0].nodeTo.oua[0].w
+        if(chemical+chemicalMix <30000):
+            self.noeud.train = True
+            return Task.SUCCES
+        return Task.ECHEC
+
+class mineTest(Task):
+    def __init__(self,noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        if(self.noeud.dailyQty >=1):
+            return Task.SUCCES
+        return Task.ECHEC
+
+class mineExitTest(Task):
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        sortie = self.noeud.oua[0]
+        if sortie.w >= sortie.getCapacity() - self.noeud._num+1:
+            return Task.ECHEC
+        return Task.SUCCES
+
+class mixerTest(Task):
+
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        entree = self.noeud.ina[0]
+        if entree.w >= 10000:
+            return Task.SUCCES
+        return Task.ECHEC
+
+class mixerExitTest(Task):
+
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        sortie = self.noeud.oua[0]
+        if sortie.w >= sortie.getCapacity()-9000:
+            return Task.ECHEC
+        return Task.SUCCES
+
+#Approvisionnement train au besoin
+class shipTest(Task):
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+        self.noeud.ship = False
+
+    def run(self):
+        if(self.noeud.ina[0].w >=2000):
+            self.noeud.ship = True
+            return Task.SUCCES
+        return Task.ECHEC

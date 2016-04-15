@@ -9,7 +9,7 @@ class Delay(Decorator):
         self._delay = delay
 
     def run(self):
-        if self.delay > 0:
+        if self.delay > 1:
             self.delay -= 1
             return Task.RUNNING
         else:

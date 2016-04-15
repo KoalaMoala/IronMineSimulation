@@ -50,6 +50,9 @@ class Modele(object):
 
     def update(self):  # update du modele
         self.etat = self.etat + 1  # mise a jour de l'etat du modele
+        print(self.etat % 24)
+        if self.etat % 24 == 0 :
+            self.system.computeDailyQty()
         self.system.update()
 
     def render(self, g):  # rendering du modele dans le canvas Tk g
