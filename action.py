@@ -22,18 +22,6 @@ class machinePostTache(Task):
             oua.w += 1
         return Task.SUCCES
 
-
-class machineShip(Task):
-
-    def __init__(self, noeud):
-        super().__init__()
-        self.noeud = noeud
-
-    def run(self):
-        for ina in self.noeud.ina:
-            ina.w -= 2000
-        return Task.SUCCES
-
 class machineTrain(Task):
 
     def __init__(self, noeud):
@@ -106,8 +94,20 @@ class machineOreProcess(Task):
         self.noeud = noeud
 
     def run(self):
-        self.noeud.ina[1].w -= 1
-        self.noeud.ina[0].w -= 1000
+        self.noeud.ina[1].w -= 10
+        self.noeud.ina[0].w -= 10000
+        return Task.SUCCES
+
+
+class machinePostOreProc(Task):
+
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        for oua in self.noeud.oua:
+            oua.w += 10
         return Task.SUCCES
 
 class machineShip(Task):
@@ -119,9 +119,9 @@ class machineShip(Task):
         self.noeud._num = 0
 
     def run(self):
-        if(self.index < 10):
+        if(self.index < 20):
             self.index+=1
-            self.noeud.ina[0] -= 200
+            self.noeud.ina[0].w -= 100
             return Task.RUNNING
         else:
             self.index = 0

@@ -8,6 +8,7 @@ class Workshop:
         self.tcycle = tcycle
         self.topLeftCorner = position
         self.dailyQty = -1
+        self._num = 0
         if(name=="Mine"):
             self.distribution = DistribTriang(10,20,30)
             self.dailyQty = self.distribution.mcInv()
@@ -28,6 +29,8 @@ class Workshop:
         g.create_text((bbox[0] + w/2, bbox[1] + 20), text=str(self.name), font=('times', 12, 'bold'), fill='black')
         if(self.dailyQty != -1):
             g.create_text((bbox[0] + w/2, bbox[1] + 40), text=str(self.dailyQty), font=('times', 12), fill='black')
+        elif(self._num >0):
+            g.create_text((bbox[0] + w/2, bbox[1] + 40), text="Transport: "+str(self._num), font=('times', 12), fill='dark green')
 
     def update(self):
         self.behavior.update()

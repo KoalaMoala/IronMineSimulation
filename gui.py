@@ -2,6 +2,8 @@
 from System import System
 from tkinter import *
 from time import sleep
+import config
+import time
 
 doRenderTk = True  # choix de faire un rendering Tk ou pas
 
@@ -15,7 +17,8 @@ class Modele(object):
         # canvas pour le rendering graphique
         self.canvas_size = (800, 600)  # taille du canvas pour le rendering
         if master is not None:  # fenetre de rendering si necessaire
-            self.refreshTk = 0.5
+            self.refreshTk = config._speed
+            self.start = time.time()
             self.waitTk = 3
             self.frame = Frame(master)
             self.frame.pack()
@@ -45,12 +48,11 @@ class Modele(object):
         self.refreshTk *= 0.5 * event.x / self.canvas_size[0]
 
     def init_modele(self):  # init du modele
-        self.nbPas = 100000  # nombre de pas de simulation
+        self.nbPas = 1000000  # nombre de pas de simulation
         self.etat = 0  # variable d'etat
 
     def update(self):  # update du modele
         self.etat = self.etat + 1  # mise a jour de l'etat du modele
-        print(self.etat % 24)
         if self.etat % 24 == 0 :
             self.system.computeDailyQty()
         self.system.update()
@@ -58,6 +60,16 @@ class Modele(object):
     def render(self, g):  # rendering du modele dans le canvas Tk g
         bbox = (0, 0, 800, 600)
         g.create_rectangle(bbox, width=1, outline="black", fill="LavenderBlush4")
+        bbox = (20, 20, 150, 80)
+        g.create_rectangle(bbox, width=1, outline="black", fill="SlateGray")
+
+        tmpDay = self.etat//24
+        g.create_text((85, 30), text=str(tmpDay)+"d "+str(self.etat%24)+"h", font=('times', 12), fill='black')
+        tmp = self.system.getTrainShip()
+
+        if(tmpDay):
+            g.create_text((85, 50), text="train/d: "+str(round(tmp[0]/tmpDay,4)), font=('times', 12), fill='black')
+            g.create_text((85, 70), text="ship/d: "+str(round(tmp[1]/tmpDay,4)), font=('times', 12), fill='black')
         default_width = 110
         default_height = 70
         self.system.render(g,default_width,default_height)
@@ -68,15 +80,19 @@ class Modele(object):
         for i in range(self.nbPas):
             # on opere le systeme pour un pas
             self.update()
+
+            now = time.time()
+
             # rendering tkinter
-            if self.g is not None:
+            if now - self.start>config._fps and self.g is not None:
+                self.start = now
                 self.g.delete(ALL)
                 self.render(self.g)
                 self.g.update()
-                sleep(self.refreshTk)
                 if i == 0: sleep(self.waitTk)  # on attends pour laisser voir l'etat initial
                 # fin boucle de simulation de la dynamique
                 ############################################
+            sleep(self.refreshTk)
 
 
 """ A executer seulement si ce n'est pas un import, mais bien un run du code. """

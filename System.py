@@ -1,6 +1,7 @@
 from workshop import Workshop
 from transit import Transit
 from BehaviourTree import BehaviorTree
+import config
 
 
 class System:
@@ -9,29 +10,29 @@ class System:
         self.transits = []
 
     def init_workshop(self):
-        self.workshops.append(Workshop("Unloading Dock", {"x": 100, "y": 100}, 1))
-        self.workshops.append(Workshop("Mixer", {"x": 350, "y": 150},2))
-        self.workshops.append(Workshop("Mine", {"x": 100, "y": 400},1))
-        self.workshops.append(Workshop("Ore Processing", {"x": 350, "y": 350},2))
-        self.workshops.append(Workshop("Loading Dock", {"x": 600, "y": 350},1))
+        self.workshops.append(Workshop("Unloading Dock", config._ud[0],  config._ud[1]))
+        self.workshops.append(Workshop("Mixer", config._mx[0],  config._mx[1]))
+        self.workshops.append(Workshop("Mine", config._mi[0],  config._mi[1]))
+        self.workshops.append(Workshop("Ore Processing", config._op[0],  config._op[1]))
+        self.workshops.append(Workshop("Loading Dock", config._ld[0],  config._ld[1]))
 
     def init_transit(self):
         # Assumed that container capacity is 10.000L. No indication anywhere.
-        self.transits.append(Transit("Tank", self.workshops[1], self.workshops[3], "Chemical mix", 100000, 0, 'L'))
+        self.transits.append(Transit("Tank", self.workshops[1], self.workshops[3], config._eta[0], config._eta[1], config._eta[2], config._eta[3]))
         self.workshops[1].addOutEdge(self.transits[0])
         self.workshops[3].addInEdge(self.transits[0])
 
         # Assumed that pit 1 capacity is 200t. No indication anywhere.
-        self.transits.append(Transit("Pit 1", self.workshops[2], self.workshops[3], "Ore", 200, 45, 'T'))
+        self.transits.append(Transit("Pit 1", self.workshops[2], self.workshops[3],config._ep1[0], config._ep1[1], config._ep1[2], config._ep1[3]))
         self.workshops[2].addOutEdge(self.transits[1])
         self.workshops[3].addInEdge(self.transits[1])
 
         # Assumed that pit 2 capacity is 200t. No indication anywhere.
-        self.transits.append(Transit("Pit 2", self.workshops[3], self.workshops[4], "Iron", 2200, 0, 'T'))
+        self.transits.append(Transit("Pit 2", self.workshops[3], self.workshops[4], config._ep2[0], config._ep2[1], config._ep2[2], config._ep2[3]))
         self.workshops[3].addOutEdge(self.transits[2])
         self.workshops[4].addInEdge(self.transits[2])
 
-        self.transits.append(Transit("Transit", self.workshops[0], self.workshops[1], "Chemical", 300000,10000, 'L'))
+        self.transits.append(Transit("Transit", self.workshops[0], self.workshops[1], config._etr[0], config._etr[1], config._etr[2], config._etr[3]))
         self.workshops[0].addOutEdge(self.transits[3])
         self.workshops[1].addInEdge(self.transits[3])
 
@@ -52,9 +53,15 @@ class System:
     def computeDailyQty(self):
         for ws in self.workshops:
             if(ws.name == "Mine"):
-                print("aaaa")
                 ws.computeDailyQty()
                 return
+
+    def getTrainShip(self):
+        res = []
+        for ws in self.workshops:
+            if(ws.name == "Unloading Dock" or ws.name== "Loading Dock"):
+                res.append(ws._num)
+        return res
 
 
 

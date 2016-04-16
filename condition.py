@@ -37,7 +37,7 @@ class machinePreTest(Task):
         entree1 = self.noeud.ina[0]
         if entree.w >= 50 and entree1.w >=50000:
             self.noeud.isWorking = True
-        if entree.w < 1 or entree1.w <1000:
+        if entree.w < 10 or entree1.w <10000:
             self.noeud.isWorking = False
         if self.noeud.isWorking:
             return Task.SUCCES
@@ -53,8 +53,9 @@ class trainTest(Task):
     def run(self):
         chemical = self.noeud.oua[0].w
         chemicalMix = self.noeud.oua[0].nodeTo.oua[0].w
-        if(chemical+chemicalMix <30000):
+        if(chemical+chemicalMix <50000):
             self.noeud.train = True
+            self.noeud._num += 1
             return Task.SUCCES
         return Task.ECHEC
 
@@ -103,7 +104,19 @@ class mixerExitTest(Task):
             return Task.ECHEC
         return Task.SUCCES
 
-#Approvisionnement train au besoin
+class oreProcTest(Task):
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        sortie = self.noeud.oua[0]
+        if sortie.w >= sortie.getCapacity()-10:
+            return Task.ECHEC
+        return Task.SUCCES
+
+
+#Evacuation ship au besoin
 class shipTest(Task):
     def __init__(self, noeud):
         super().__init__()

@@ -65,8 +65,8 @@ class BehaviorTree():
 
         repeater = Repeater()
         selector2 = Sequence()
-        selector2.add_child(sortieTest(noeud,0))
-        selector2.add_child(machinePostTache(noeud))
+        selector2.add_child(oreProcTest(noeud))
+        selector2.add_child(machinePostOreProc(noeud))
         repeater.add_child(selector2)
 
         subroot.add_child(deco)
