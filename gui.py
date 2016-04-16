@@ -48,7 +48,7 @@ class Modele(object):
         self.refreshTk *= 0.5 * event.x / self.canvas_size[0]
 
     def init_modele(self):  # init du modele
-        self.nbPas = 1000000  # nombre de pas de simulation
+        self.nbPas = 4000000  # nombre de pas de simulation
         self.etat = 0  # variable d'etat
 
     def update(self):  # update du modele
@@ -67,9 +67,10 @@ class Modele(object):
         g.create_text((85, 30), text=str(tmpDay)+"d "+str(self.etat%24)+"h", font=('times', 12), fill='black')
         tmp = self.system.getTrainShip()
 
-        if(tmpDay):
-            g.create_text((85, 50), text="train/d: "+str(round(tmp[0]/tmpDay,4)), font=('times', 12), fill='black')
-            g.create_text((85, 70), text="ship/d: "+str(round(tmp[1]/tmpDay,4)), font=('times', 12), fill='black')
+        if(tmp[0]):
+            g.create_text((85, 50), text="d/train: "+str(round(tmpDay/tmp[0],4)), font=('times', 12), fill='black')
+        if(tmp[1]):
+            g.create_text((85, 70), text="d/ship: "+str(round(tmpDay/tmp[1],4)), font=('times', 12), fill='black')
         default_width = 110
         default_height = 70
         self.system.render(g,default_width,default_height)
