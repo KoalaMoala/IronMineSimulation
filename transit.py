@@ -48,4 +48,7 @@ class Transit:
             g.create_line(pFromTo[0],pFromTo[1],pFromTo[2],pFromTo[3], width=1.5, fill="gray80")
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 5), text=str(self.name), font=bfont, fill='black')
             g.create_text((text_coordinate["x"], text_coordinate["y"] + 25), text=str(self.stockName), font=bfont, fill='black')
-            g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w)+self.unit, font=bfont, fill='black')
+            if self.w == self.stockMaxQuantities:
+                g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w)+self.unit, font=bfont, fill='red')
+            else:
+                g.create_text((text_coordinate["x"], text_coordinate["y"] + 45), text=str(self.w)+self.unit, font=bfont, fill='black')
