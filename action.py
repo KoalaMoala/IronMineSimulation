@@ -46,6 +46,7 @@ class machineMine(Task):
         self.index = 24
 
     def run(self):
+        if(self.index <= 0): self.index = 24
         if(self.index < self.noeud.dailyQty):
             self.index-=1
             self.noeud.dailyQty -= 2
