@@ -16,9 +16,10 @@ class DistribTriang:
             return 0
 
     def mcInv(self):
-        for i in range(100):
-            x=random.random()*20+10
-            y=random.random()*2/(self._max - self._min)
-            if y<self.fct(x):
-                return math.floor(x)
-        return self._min
+        _U = random.random()
+        _fc = (self._mode - self._min) / (self._max - self._min)
+        if(_U < _fc):
+            return math.floor(self._min + math.sqrt(_U * (self._max - self._min) * (self._mode - self._min)))
+        else:
+            return math.floor(self._max - math.sqrt( (1 -_U) * (self._max - self._min) * (self._max - self._mode)))
+
