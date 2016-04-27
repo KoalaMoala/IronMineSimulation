@@ -33,7 +33,6 @@ class Workshop:
         elif(self._num >0):
             g.create_text((bbox[0] + w/2, bbox[1] + 40), text="Transport: "+str(self._num), font=('times', 12), fill='dark green')
 
-
     def update(self):
         self.behavior.update()
 
