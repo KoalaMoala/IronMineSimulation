@@ -1,7 +1,7 @@
 
 #"Unloading Dock"
 #position, temps de cycle (heure)
-_ud = [{"x": 100, "y": 100}, 1]
+_ud = [{"x": 100, "y": 100}, 2]
 #"Mixer"
 _mx =[{"x": 350, "y": 150},2]
 #"Mine"
@@ -19,7 +19,7 @@ _ep1 = ["Ore", 60, 0, 'T']
 #"Pit 2"
 _ep2 = ["Iron", 2100, 0, 'T']
 #"Transit"
-_etr = ["Chemical", 300000, 0, 'L']
+_etr = ["Chemical", 30000, 0, 'L']
 
 #fps
 _fps= 1/10

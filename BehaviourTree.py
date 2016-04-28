@@ -20,14 +20,23 @@ class BehaviorTree():
     def createBTUnloadingDock(self, noeud):
         self.root = SequenceStar()
 
-        rep = Repeater()
-        rep.add_child(machineTrain(noeud))
 
         dela = Delay(noeud.tcycle)
-        dela.add_child(rep)
+        dela.add_child(machineTrain(noeud))
+
+        sequence = Sequence()
+        sequence.add_child(trainLoadTest(noeud))
+
+        rep = Repeater()
+        seq2 = Sequence()
+        seq2.add_child(trainExitTest(noeud))
+        seq2.add_child(machinePostTrain(noeud))
+        rep.add_child(seq2)
 
         self.root.add_child(trainTest(noeud))
+        self.root.add_child(sequence)
         self.root.add_child(dela)
+        self.root.add_child(rep)
 
 
     def createBTOreProcessing(self, noeud):

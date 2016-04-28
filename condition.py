@@ -53,11 +53,32 @@ class trainTest(Task):
     def run(self):
         chemical = self.noeud.oua[0].w
         chemicalMix = self.noeud.oua[0].nodeTo.oua[0].w
-        if(chemical+chemicalMix <50000):
-            self.noeud.train = True
+        if(chemical+chemicalMix+self.noeud.loadQty <50000):
             self.noeud._num += 1
+            self.noeud.loadQty = 300000
+        return Task.SUCCES
+
+class trainLoadTest(Task):
+    def __init__(self,noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        if(self.noeud.loadQty >= 30000):
             return Task.SUCCES
         return Task.ECHEC
+
+class trainExitTest(Task):
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        sortie = self.noeud.oua[0]
+        if sortie.w > sortie.getCapacity() - 30000:
+            return Task.ECHEC
+        return Task.SUCCES
+
 
 class mineTest(Task):
     def __init__(self,noeud):

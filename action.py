@@ -27,16 +27,21 @@ class machineTrain(Task):
     def __init__(self, noeud):
         super().__init__()
         self.noeud = noeud
-        self.index = 0
 
     def run(self):
-        if(self.index < 10):
-            self.index+=1
-            self.noeud.oua[0].w += 30000
-            return Task.RUNNING
-        else:
-            self.index = 0
-            return Task.SUCCES
+        self.noeud.loadQty -= 30000
+        return Task.SUCCES
+
+
+class machinePostTrain(Task):
+
+    def __init__(self, noeud):
+        super().__init__()
+        self.noeud = noeud
+
+    def run(self):
+        self.noeud.oua[0].w += 30000
+        return Task.SUCCES
 
 class machineMine(Task):
 

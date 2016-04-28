@@ -10,9 +10,12 @@ class Workshop:
         self.topLeftCorner = position
         self.dailyQty = -1
         self._num = 0
+        self.loadQty = -1
         if(name=="Mine"):
             self.distribution = DistribTriang(config._mdt[0],config._mdt[1],config._mdt[2])
             self.dailyQty = self.distribution.mcInv()
+        elif (name == "Unloading Dock"):
+            self.loadQty = 0
 
     def setBehavior(self, bt):
         self.behavior = bt
@@ -32,6 +35,9 @@ class Workshop:
             g.create_text((bbox[0] + w/2, bbox[1] + 40), text=str(self.dailyQty), font=('times', 12), fill='black')
         elif(self._num >0):
             g.create_text((bbox[0] + w/2, bbox[1] + 40), text="Transport: "+str(self._num), font=('times', 12), fill='dark green')
+        if(self.loadQty >= 0):
+            g.create_text((bbox[0] + w/2, bbox[1] + 60), text=str(self.loadQty), font=('times', 12), fill='black')
+
 
     def update(self):
         self.behavior.update()
