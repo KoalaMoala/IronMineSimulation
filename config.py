@@ -24,7 +24,7 @@ _etr = ["Chemical", 30000, 0, 'L']
 #fps
 _fps= 1/60
 #vitesse 1/24 mean 1 day per second
-_speed = 0 #1/24
+_speed = 1/24 #1/24
 
 #Mine distribution triangulaire
 #min, mode, max
