@@ -17,17 +17,15 @@ class System:
         self.workshops.append(Workshop("Loading Dock", config._ld[0],  config._ld[1]))
 
     def init_transit(self):
-        # Assumed that container capacity is 10.000L. No indication anywhere.
+        # instancing transits with config data
         self.transits.append(Transit("Tank", self.workshops[1], self.workshops[3], config._eta[0], config._eta[1], config._eta[2], config._eta[3]))
         self.workshops[1].addOutEdge(self.transits[0])
         self.workshops[3].addInEdge(self.transits[0])
 
-        # Assumed that pit 1 capacity is 200t. No indication anywhere.
         self.transits.append(Transit("Pit 1", self.workshops[2], self.workshops[3],config._ep1[0], config._ep1[1], config._ep1[2], config._ep1[3]))
         self.workshops[2].addOutEdge(self.transits[1])
         self.workshops[3].addInEdge(self.transits[1])
 
-        # Assumed that pit 2 capacity is 200t. No indication anywhere.
         self.transits.append(Transit("Pit 2", self.workshops[3], self.workshops[4], config._ep2[0], config._ep2[1], config._ep2[2], config._ep2[3]))
         self.workshops[3].addOutEdge(self.transits[2])
         self.workshops[4].addInEdge(self.transits[2])
