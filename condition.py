@@ -97,7 +97,7 @@ class mineExitTest(Task):
 
     def run(self):
         sortie = self.noeud.oua[0]
-        if sortie.w >= sortie.getCapacity() - self.noeud._num+1:
+        if sortie.w > sortie.getCapacity() - self.noeud._num+1:
             return Task.ECHEC
         return Task.SUCCES
 
@@ -132,7 +132,7 @@ class oreProcTest(Task):
 
     def run(self):
         sortie = self.noeud.oua[0]
-        if sortie.w >= sortie.getCapacity()-10:
+        if sortie.w > sortie.getCapacity()-10:
             return Task.ECHEC
         return Task.SUCCES
 

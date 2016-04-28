@@ -15,16 +15,16 @@ _ld =[{"x": 600, "y": 350},1]
 #Nom Produit, Capacity max, Quantity, Unit
 _eta = ["Chemical mix", 300000, 0, 'L']
 #"Pit 1"
-_ep1 = ["Ore", 60, 0, 'T']
+_ep1 = ["Ore", 50, 0, 'T']
 #"Pit 2"
-_ep2 = ["Iron", 2100, 0, 'T']
+_ep2 = ["Iron", 2000, 0, 'T']
 #"Transit"
 _etr = ["Chemical", 30000, 0, 'L']
 
 #fps
-_fps= 1/10
+_fps= 1/60
 #vitesse 1/24 mean 1 day per second
-_speed = 1/24 #1/24
+_speed = 0 #1/24
 
 #Mine distribution triangulaire
 #min, mode, max
